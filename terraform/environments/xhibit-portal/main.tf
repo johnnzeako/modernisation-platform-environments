@@ -2,7 +2,7 @@ data "aws_caller_identity" "current" {}
 
 module "vm-import" {
 
-  source = "/Users/zuri/gitWork/mod-platform/modernisation-platform-terraform-aws-vm-import"
+  source = "github.com/ministryofjustice/modernisation-platform-terraform-aws-vm-import"
 
   bucket_prefix    = local.application_data.accounts[local.environment].bucket_prefix
   tags             = local.tags
