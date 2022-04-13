@@ -47,20 +47,20 @@ data "aws_secretsmanager_secret_version" "environment_management" {
 # }
 
 #tfsec:ignore:AWS095
-resource "aws_secretsmanager_secret" "db_password" {
-  #checkov:skip=CKV_AWS_149
-
-  name = "${var.networking[0].application}-database-password"
-
-  tags = merge(
-    local.tags,
-    {
-      Name = "${var.networking[0].application}-db-password"
-    },
-  )
-}
-
-resource "aws_secretsmanager_secret_version" "db_password" {
-  secret_id     = aws_secretsmanager_secret.db_password.id
-  secret_string = random_password.random_password.result
-}
+# resource "aws_secretsmanager_secret" "db_password" {
+#   #checkov:skip=CKV_AWS_149
+#
+#   name = "${var.networking[0].application}-database-password"
+#
+#   tags = merge(
+#     local.tags,
+#     {
+#       Name = "${var.networking[0].application}-db-password"
+#     },
+#   )
+# }
+#
+# resource "aws_secretsmanager_secret_version" "db_password" {
+#   secret_id     = aws_secretsmanager_secret.db_password.id
+#   secret_string = random_password.random_password.result
+# }
