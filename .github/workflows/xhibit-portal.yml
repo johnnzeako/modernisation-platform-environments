@@ -83,7 +83,7 @@ jobs:
           bash scripts/terraform-plan.sh terraform/environments/xhibit-portal
         env:
           TF_ENV: preproduction
-
+ 
   deploy-preproduction:
     needs: plan-preproduction # job only runs if plan-production runs successfully
     name: Deploy Pre-Production - xhibit-portal
