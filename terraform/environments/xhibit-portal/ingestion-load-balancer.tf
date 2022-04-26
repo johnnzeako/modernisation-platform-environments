@@ -95,16 +95,6 @@ resource "aws_s3_bucket" "ingestion_loadbalancer_logs" {
   force_destroy = true
 }
 
-resource "aws_s3_bucket_server_side_encryption_configuration" "default_encryption_ingestion_loadbalancer_logs" {
-  bucket = aws_s3_bucket.ingestion_loadbalancer_logs.bucket
-
-  rule {
-    apply_server_side_encryption_by_default {
-      sse_algorithm     = "AES256"
-    }
-  }
-}
-
 resource "aws_s3_bucket_policy" "ingestion_loadbalancer_logs_policy" {
   bucket = aws_s3_bucket.ingestion_loadbalancer_logs.bucket
   policy = data.aws_iam_policy_document.s3_bucket_ingestion_lb_write.json
