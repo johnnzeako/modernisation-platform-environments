@@ -30,8 +30,11 @@ resource "aws_security_group_rule" "ingestion_lb_allow_web_users" {
   ]
 }
 
-data "aws_subnet_ids" "ingestion-shared-public" {
-  vpc_id = local.vpc_id
+data "aws_subnets" "ingestion-shared-public" {
+  filter {
+    name   = "vpc-id"
+    values = [local.vpc_id]
+  }
   tags = {
     "Name" = "${var.networking[0].business-unit}-${local.environment}-${var.networking[0].set}-public*"
   }
@@ -46,7 +49,7 @@ resource "aws_elb" "ingestion_lb" {
   name            = "ingestion-lb-${var.networking[0].application}"
   internal        = false
   security_groups = [aws_security_group.ingestion_lb.id]
-  subnets         = data.aws_subnet_ids.ingestion-shared-public.ids
+  subnets         = data.aws_subnets.ingestion-shared-public.ids
 
   access_logs {
     bucket        = aws_s3_bucket.ingestion_loadbalancer_logs.bucket
